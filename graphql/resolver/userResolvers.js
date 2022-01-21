@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const userModel = require("../../models/userModel");
 
 
@@ -10,6 +12,30 @@ module.exports = {
             return user
         } catch (error) {
             throw new Error('User not found!')
+        }
+    },
+
+    loginUser: async args => {
+        const { email, password } = args.input;
+
+        try {
+            const user = await userModel.findOne({ email: email });
+            const validPassword = await bcrypt.compare(password, user.password);
+
+
+            if (user && validPassword) {
+                const token = await jwt.sign({
+                    name: user.name,
+                    email: user.email
+                }, process.env.JSON_TOKEN_SECRET, {
+                    expiresIn: '1h'
+                })
+                return { token }
+            } else {
+                throw new Error('Credential not valid!')
+            }
+        } catch (error) {
+            throw new Error('Something went wrong with finding user!')
         }
     },
 
@@ -26,8 +52,14 @@ module.exports = {
         try {
             const checkExisting = await userModel.find({ email: email });
             if (!checkExisting[0]) {
-                const users = await user.save();
-                return [users]
+                await user.save();
+                const token = await jwt.sign({
+                    name: user.name,
+                    email: user.email
+                }, process.env.JSON_TOKEN_SECRET, {
+                    expiresIn: '1h'
+                })
+                return { token }
             } else {
                 throw new Error('Email already exist!')
             }

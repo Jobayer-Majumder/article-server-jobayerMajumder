@@ -19,6 +19,8 @@ app.use(express.json());
 app.use('/graphql', graphqlHTTP({
   schema: schemas,
   rootValue: rootResolver,
+  dataSources: () => ({}),
+  introspection: true,
 
   graphiql: true
 }));

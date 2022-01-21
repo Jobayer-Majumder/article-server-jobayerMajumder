@@ -18,10 +18,21 @@ const schemas = buildSchema(`
     password: String!
   }
 
+  type Token {
+    token: String!
+  }
+
+  input LoginInput {
+    email: String!
+    password: String
+  }
+
+  scalar Date
+
   type Comment {
     userId: String!
     comment: String!
-    createdAt: String!
+    createdAt: Date!
   }
 
   type Notify {
@@ -43,8 +54,8 @@ const schemas = buildSchema(`
     tags: [String]!
     comments: [Comment]!
     authorEmail: String!
-    updatedAt: String!
-    createdAt: String!
+    updatedAt: Date!
+    createdAt: Date!
   }
   
   input ArticleInput {
@@ -57,11 +68,14 @@ const schemas = buildSchema(`
     findUser(id: String!): [User]!
     articles: [Article]!
     findArticle(id: String!): [Article]!
+    deleteArticle(id: String!): Notify!
+    userArticle(email: String!): [Article]!
   }
   
   
     type RootMutation {
-      createUser(input: UserInput): [User]!
+      createUser(input: UserInput): Token!
+      loginUser(input: LoginInput): Token!
       createArticle(input: ArticleInput): [Article]!
       insertComment(input: CommentInput): Notify!
     }
