@@ -32,14 +32,15 @@ module.exports = {
     },
 
     createArticle: async (args) => {
-        const { title, description, tags } = args.input;
+        const { title, description, tags, authorName, authorEmail } = args.input;
 
         const article = new ArticleModel({
-            title: title,
-            description: description,
-            tags: tags,
+            title,
+            description,
+            tags,
             comments: [],
-            authorEmail: 'String!'
+            authorName,
+            authorEmail
         });
 
         try {
@@ -85,10 +86,6 @@ module.exports = {
                 });
 
             if (updated.modifiedCount > 0) {
-                // const comment = await ArticleModel.find({_id: articleId})
-                // const expected = comment[0]?.comments.filter(comment => userName === comment.userName)
-                // console.log(expected)
-
                 return {
                     successMessage: 'Comment Inserted Successfully',
                     errorMessage: ''

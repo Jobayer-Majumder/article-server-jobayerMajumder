@@ -53,6 +53,7 @@ const schemas = buildSchema(`
     description: String!
     tags: [String]!
     comments: [Comment]!
+    authorName: String!
     authorEmail: String!
     updatedAt: Date!
     createdAt: Date!
@@ -62,6 +63,8 @@ const schemas = buildSchema(`
     title: String!
     description: String!
     tags: [String]!
+    authorName: String!
+    authorEmail: String!
   }
   
   type RootQuery {

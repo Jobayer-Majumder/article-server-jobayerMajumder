@@ -19,6 +19,10 @@ const ArticleModel = new mongoose.Schema({
         type: Array,
         required: true
     },
+    authorName: {
+        type: String,
+        required: true
+    },  
     authorEmail: {
         type: String,
         required: true

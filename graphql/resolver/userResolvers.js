@@ -25,6 +25,7 @@ module.exports = {
 
             if (user && validPassword) {
                 const token = await jwt.sign({
+                    id: user._id,
                     name: user.name,
                     email: user.email
                 }, process.env.JSON_TOKEN_SECRET, {
