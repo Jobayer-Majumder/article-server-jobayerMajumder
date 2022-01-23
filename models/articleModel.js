@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 
 
 const ArticleModel = new mongoose.Schema({
-    id: {
-        type: new mongoose.Types.ObjectId,
-        required: true
-    },
     title: {
         type: String,
         required: true
@@ -15,10 +11,23 @@ const ArticleModel = new mongoose.Schema({
         type: String,
         required: true
     },
+    tags: {
+        type: Array,
+        required: true
+    },
+    comments: {
+        type: Array,
+        required: true
+    },
+    authorName: {
+        type: String,
+        required: true
+    },  
     authorEmail: {
         type: String,
         required: true
-    }    
+    }  
+
 }, {timestamps: true});
 
 
