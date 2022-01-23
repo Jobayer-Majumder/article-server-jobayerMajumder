@@ -30,7 +30,7 @@ const schemas = buildSchema(`
   scalar Date
 
   type Comment {
-    userId: String!
+    userName: String!
     comment: String!
     createdAt: Date!
   }
@@ -43,7 +43,7 @@ const schemas = buildSchema(`
 
   input CommentInput {
     articleId: String!
-    userId: String!
+    userName: String!
     comment: String!
   }
 

@@ -68,7 +68,8 @@ module.exports = {
     },
 
     insertComment: async (args) => {
-        const { articleId, userId, comment } = args.input;
+        const { articleId, userName, comment } = args.input;
+        console.log(args.input)
 
         const createdAt = new Date();
 
@@ -79,7 +80,7 @@ module.exports = {
                 {
                     $push: {
                         comments: {
-                            $each: [{ userId, comment, createdAt }],
+                            $each: [{ userName, comment, createdAt }],
                             $position: 0
                         }
                     }
